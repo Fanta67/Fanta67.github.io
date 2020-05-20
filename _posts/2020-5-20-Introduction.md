@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Introduction
+tags:
+- Welcome
 ---
 
 Hi, welcome to the blog! 
