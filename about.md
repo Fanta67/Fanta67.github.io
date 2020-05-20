@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Class of 2021 CS major at the University of Texas at Austin. 
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+Probably going to be blogging about fun probability things that hurt my brain and computer science nerd stuff.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[dylan.kan67@utexas.edu](mailto:dylan.kan67@utexas.edu)
