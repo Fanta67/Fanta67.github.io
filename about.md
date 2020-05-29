@@ -4,11 +4,11 @@ title: About
 permalink: /about/
 ---
 
-Class of 2021 CS major at the University of Texas at Austin. 
+Class of 2020 CS major at the University of Texas at Austin. 
 
 ### More Information
 
-Probably going to be blogging about fun probability things that hurt my brain and computer science nerd stuff.
+Probably going to be blogging about fun probability things that hurt my brain and computer science nerd stuff. I'm interested in trading, software engineering, and data science. Looking for a full time offer starting summer 2021.
 
 ### Contact me
 

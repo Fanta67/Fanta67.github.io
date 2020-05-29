@@ -1,0 +1,21 @@
+I"�<p>No matter what we do, we’re bound to run into some issues in the things we do. This blog is no exception.</p>
+
+<p>Aside from teaching my potential employers and you giga nerds who somehow found this page fun facts about math and computer science, this blog is also for me to do something with my summer while under lockdown and a way for me to learn something new. That being said, there’s some things I’ll probably run into that I won’t have an explanation for.</p>
+
+<p>I’ll be putting together a list of all the troubles I run into that I think are interesting enough to be shared here, whether regarding the blog or not. I’ll also update the list with explanations, workarounds, or solutions as I come up with them.</p>
+
+<ul>
+  <li>
+    <details>
+<summary>Post preview</summary>
+  
+  Each post for this blog is sourced from the _posts file in this directory. The posts are titled as YYYY-MM-DD-Title.md and the base repo  came with a sample introduction post. On the home page, the posts are supposed to have a preview, and there is a read more button to exapnd and view the rest of the post. The preview is supposed to cut off after the first paragraph.
+
+  I'm working on this blog using VSCode and pushing to the repository with any updates. Oddly enough, creating a new file through either VSCode's editor or through file explorer and naming it appropriately and adding the .md extension breaks the preview functionality. Doing either of these two causes the preview to ignore the paragraph cutoff and spits out the entire post on the home page. I've even tried creating another 2020-5-20-Introduction.md file and copy and pasting the content of the file, but that still doesn't work. That tells me that there's something within the included sample file that allows for Jekyll to format the post preview properly that isn't generated when a new file is created and simply given the .md extension.
+
+  My workaround for this issue is simply to create a copy of the included sample post in the posts directory. Rather than copy and pasting the contents of the file, copying the entire file somehow fixes the bug. Please let me know if you know what causes this!
+
+</details>
+  </li>
+</ul>
+:ET
