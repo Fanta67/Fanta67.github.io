@@ -1,0 +1,70 @@
+I"�$<p>There’s a famous competition that takes place in many high school physics classes around the country - build a contraption to make a raw egg survive from the highest drop. How do colleges expand on this as both a computer science topic?</p>
+
+<h3 id="problem-proposal">Problem Proposal</h3>
+
+<p>The classic problem goes like this:</p>
+
+<blockquote>
+  <p>You are standing atop a 100 story building. You have two identical eggs, and your goal is to find out the highest floor from which a dropped egg will not crack. If you drop an egg and it breaks, you cannot reuse that egg. However, if you drop an egg and it doesn’t break, you are able to do more testing with that egg. What strategy should you use for testing to minimize the number of drops needed in the worst case?</p>
+</blockquote>
+
+<div align="center"><img src="/images/eggs.jpg" /></div>
+
+<h3 id="variants">Variants</h3>
+
+<h4 id="one-egg">One Egg</h4>
+
+<p>Let’s start by thinking about what happens when we are only given a single egg. The naïve solution would have us simply start with floor 1 and work our way up. This takes us a worst case of 100 drops. Because we only have one egg, we can’t do any better! If the egg breaks at floor n, we would have no way to know if the egg would also break at floor (n - 1).</p>
+
+<h4 id="infinite-eggs">Infinite Eggs</h4>
+
+<p>Of course, the naïve solution still works here. As mentioned previously, in the worst case scenario, when the answer to the puzzle is 100, this will take us 100 drops to verify. In computer science, we call this O(N) where N is the number of floors that we start with. However, because we have this ability now to break an egg and continue testing, we can do better.</p>
+
+<p>The <a href="https://www.geeksforgeeks.org/binary-search/">binary search</a> is one of the first things taught in introductory CS classes. This search method teaches newer computer scientists that linear probing is not always the best way to go, and that a log base 2 approach comes up in many algorithms (such as sorting, tree traversal, and more!). Each iteration, we check our result at the midpoint of our range using the formula mid = low + (high - low) / 2. [<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>]</p>
+
+<p>By the statement of the bounds of the problem, we know that the answer to the problem must lie in the range [1, 100]. If we adapt the binary search to this problem, we calculate the first drop to be 1 + (100 - 1) / 2 + 1 = 1 + 49 (integer division!) + 1 = floor 51. In this problem, we use the extra + 1 in the mid calculation in order to offset the elimination of a number from our range max if the egg breaks. For clarification, if the egg breaks after the first drop, we know that our answer then lies in the range of [1, 49]. If it doesn’t break, then we move our window to [50, 100]. We continue reducing our search space to half of its size in each iteration until we get to a window at which low = high. When we get to this point, this tells us that the answer to our problem is simply that value. Here is the code to test this out:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">//returns true if the egg breaks when dropped from floor f</span>
+<span class="c1">//boolean breaksFrom(int f); </span>
+<span class="kt">int</span> <span class="nf">binarySearch</span><span class="o">()</span> <span class="o">{</span> 
+  <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+  <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+  <span class="k">while</span> <span class="o">(</span><span class="n">min</span> <span class="o">&lt;</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">min</span> <span class="o">+</span> <span class="o">(</span><span class="n">max</span> <span class="o">-</span> <span class="n">min</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">breaksFrom</span><span class="o">(</span><span class="n">mid</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">max</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="n">min</span> <span class="o">=</span> <span class="n">mid</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">max</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Using the binary search, we can get our worst case from 100 down to log2(100) = 6.64 ≈ 7 drops! This is a log(N) runtime because at each iteration, we cut our remaining search space in half. In other words, this means that it takes 7 “halvings” to get from a window of size 100 to a window of size 1. This also means that we could use this strategy as long as we have at least 7 eggs to drop.</p>
+
+<h4 id="back-to-two-eggs">Back to Two Eggs</h4>
+
+<p>Whew! It feels like we already covered a post’s worth of material before even getting started on the actual problem. Anyways, now that we have this restriction that only two eggs can be used, the binary search won’t work. As we already mentioned, the binary search method has a worst case of 7 drops. This means that if we had 7 eggs, we could use the binary search and have that be optimal.</p>
+
+<p>A naive solution here would be to go the O(√N) route. Visualize our 100 floors in a 10x10 grid and use each egg as one axis. We test unit by unit for each axis to lock onto a single coordinate. That is, we start at floor 1, then go to floor 11, and so on until we hit a floor that cracks the egg. Then, we go one by one with the second egg until we single out our answer.</p>
+
+<p align="center">
+  <img width="300" height="300" src="/images/grid.png" />
+  <br />
+  <em>Visualization of the floors</em>
+</p>
+
+<p>If we use this strategy, the worst case number of drops would be when the answer is 99. We would do 10 drops with the first egg, break it at floor 100, and do 9 more drops with the second egg between floors 91 and 99.  This gives us a worst case of 19 drops… not terrible, but can we do better?</p>
+
+<p>An observation to make right now is that the binary search algorithm works so well because its best case and worst case are nearly equivalent. If we analyze our current algorithm, there is a pretty significant gap between our best case (2 drops) and worst case (19 drops). We can improve our worst case by trying to offsetting our best case. We currently go up 10 floors each test with our first egg. Regardless of how many groups of 10 floors we go through with the first egg, the second egg always has the job of doing a linear search with a worst case of 10 drops. What if instead we went up (x - 1) floors with each test with the first egg, where x is previous increment? This gives our second egg a smaller range depending on how many drops we’ve already used. For each drop with the first egg, the second egg’s linear search range is decreased by 1. Though this means that this would take more drops if our answer is in the lower floors, this way our best case and worst case are more balanced out. But then what is x? Well we want our first egg’s last drop to end at 100. This can be represented algebraically by x + (x - 1) + (x - 2) + … + 1 ≥ 100. The arithmetic series on the left side is known as a <a href="https://en.wikipedia.org/wiki/Triangular_number/">triangular series</a>, which allows us to rewrite this as (x(x + 1)) / 2 = 100. Doing a little simple algebra, we get that x ≈ 13.651 = 14. This tells us that we start our drops at floor 14 and work our way up in (x - 1) steps. Using this method, regardless of where we break our first egg, we have a worst case of 14 drops total.</p>
+
+<p><br /></p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>This formula is actually pretty interesting in itself. It’s clear that we want to find the of the average of the min and the max bound. You might ask, why don’t we just use (low + high) / 2? The difference seems subtle, and it is! The original binary search implementation in 1960 used this version and the bug actually went unnoticed for about 20 years. The problem with this has to do with overflow. If you use a language like Python which represents its numbers as an endless stream in memory. However, if you use a language like Java which designates a strict 32 bits to your integer, trying to do (low + high) may overflow the memory allocated for your integer if it happens to give a result greater than 2^32. Though it is an edge case (and doesn’t have any relevance for this particular problem), it’s still something we can prevent! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET

@@ -1,0 +1,117 @@
+I"�"<p>Let’s talk about square numbers. They’re super neat and there’s quite a few tricks to work with them.</p>
+
+<h3 id="basics-and-intuition">Basics and Intuition</h3>
+
+<p>For starters, it might help to gain some intuition on squares by looking at the first few and trying to observe a pattern:</p>
+
+<p><code class="highlighter-rouge">1, 4, 9, 16, 25, 36, 49, 64, 81, 100</code></p>
+
+<p>As a simple test, consider this a series. What’s the next term? How do you get there if you don’t know about squares? Check your answer below when you think you’ve figured it out!</p>
+
+<details>
+  <summary>Spoiler</summary>
+  
+  The Nth number is the sum of the first N odd numbers. Of course, this means that we get to the next term by adding 21 and the next number in the sequence would be 121.
+</details>
+
+<p>Why is this the case? Visually, what happens when we try to get from a 1x1 square to a 2x2 square in the first quadrant? We add 1 unit square to the top of our existing square, 1 unit square to the right, and 1 unit square in the top right corner. In general, to get from a nxn square to a (n+1)x(n+1) square in the first quadrant, we add n unit squares to the top, n unit squares to the right, and 1 unit square to the top right corner. This amounts to a total addition of 2n + 1, or the nth odd number, squares each time we increment. If you find this easier to work with, we can account for the offset for starting at 1, and we get the expression</p>
+
+<div align="center"><img src="https://latex.codecogs.com/gif.latex?x^2=\sum_{k=1}^{n}(2k%20-%201)" /> </div>
+
+<p align="center">
+  <img width="300" height="300" src="/images/squares.gif" />
+  <br />
+  <em>Construction of 2x2 square from 1x1 square</em>
+</p>
+
+<h3 id="patterns">Patterns</h3>
+
+<p>Looking the numbers in the sequence, we also realize that there’s a pattern in the one’s place digit. This pattern occurs in a cycle of 10, which allows us to have a deterministic mapping from the last digit of a number to the last digit of it’s square. Here are some fun facts if your number ends with:</p>
+
+<ul>
+  <li>
+    <ol>
+      <li>The square ends with 00, and the number preceding the 0’s must also be a square.</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>The square ends with 1, and the number preceding the 1 must be divisible by 4.
+        <ol>
+          <li>The square ends with 4, and the number preceding the 4 must be even.</li>
+          <li>The square ends with 9, and the number preceding the 9 must be divisible by 4.</li>
+          <li>The square ends with 6, and the number preceding the 6 must be odd.</li>
+          <li>The square ends with 25, and the number preceding the 25 must be a 0, 2, 06, or 56.</li>
+          <li>The square ends with 6, and the number preceding the 6 must be odd.</li>
+          <li>The square ends with 9, and the number preceding the 9 must be divisible by 4.</li>
+          <li>The square ends with 4, and the number preceding the 4 must be even.</li>
+          <li>The square ends with 1, and the number preceding the 1 must be divisible by 4.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p>Something to notice is that there’s a symmetry in the pattern here. This gives us a pretty good way to estimate square roots. For instance, if someone says “quick, give me the square root of 1444!”, here’s what my thought process would be. First, I laugh at them for being a nerd and asking me this sort of ridiculous question when there is calculator functionality built into our phones. In case I’m sitting in the mental math part of a quantitative interview, I quickly apologize and continue as follows. I know the square root is a little less than 40, because 40^2 = 1600. I also know that the square ends with either a 2 or an 8. Because 1444 is much closer to 1600 than 30^2 = 900, the answer here is clearly 38^2 = 1444.</p>
+
+<p>Another interesting squares fact has to do with squaring numbers that end in the number 5. Take for instance 45^2 = 2025. We know that this number has to lie between 40^2 = 1600 and 50^2 = 2500, roughly at the halfway point. However, keep in mind that as the base number goes up, so does the number we increment by because of the whole nth odd number shebang. This means that 45^2 will be slightly closer to 1600 than it is to 2500. A similar occurrence happens when we try to get from 4^2 to 5^2. In this case, incrementally going from 4 * 4 = 16 to 5 * 5 = 25 means we step through 4 * 5 = 20. Going from 16 to 20, we only make a step of 4, but from 20 to 25 we make a step of 5. This is an interesting parallel as we notice that 20 is actually the number preceding the 25 in our 45^2 example. If we actually do some testing, we realize that this parallel actually checks out and we get the following observation:</p>
+
+<ul>
+  <li><em>([m]5)^2 = [n]25 where n = m * (m + 1), m represents the digits preceding the 5, and n represents the digits preceding the 25.</em></li>
+</ul>
+
+<p>This fact is also where the second property comes from for squaring numbers ending in 5. Trying any number for m results in n ending in one of 0, 2, 06, or 56.</p>
+
+<h3 id="tricks">Tricks</h3>
+
+<p>Next, I want to talk about three different ways I know to square numbers quickly. For simplicity’s sake, we’ll do examples with two digit numbers. Note that all of these can be adapted to three digit numbers as well, but then some recursion is involved if you don’t have your two digit squares memorized. Two of these are basic algebraic decompositions, so let’s talk about those first. They are</p>
+
+<ul>
+  <li><img src="https://latex.codecogs.com/gif.latex?(10a+b)^2=100a^2+20ab+b^2" /></li>
+</ul>
+
+<p>This method is probably the most straightforward of the three to understand. We can deconstruct any two digit number into its tens digit and its ones digit. Doing this and using teh above property gives us an easy way of thinking about the square. We simply take the tens digit as a and the ones digit as b and plug it into the above formula. Let’s take 82 for a quick example. When a = 8 and b = 2, we get 82^2 = 100(64) + 20(8)(2) + 4 = 6724.</p>
+
+<ul>
+  <li><img src="https://latex.codecogs.com/gif.latex?x^2=(x+y)(x-y)+y^2" /></li>
+</ul>
+
+<p>This formula is simply a rearrangement of the equality (x + y)(x - y) = x^2 - y^2. The idea here is that we want to convert a 2 digit by 2 digit multiplication into a 2 digit by 1 digit multiplication. This is done by rounding off the number to its nearest multiple of 10 and adjusting for that change. For an example, let’s use 47^2. We notice that the nearest multiple of 10 is 50, so we can convert this into (47 + 3)(47 - 3) + 3^2 = 50 * 44 + 9 = 2209. The ease in mental calculation comes from having the multiple of 10, which in this example allows us to do 5 * 44 which is relatively a much more simple calculation.</p>
+
+<p>Finally,</p>
+
+<ul>
+  <li><img src="https://latex.codecogs.com/gif.latex?x^2=(x-25)*100+(50-x)^2" /></li>
+</ul>
+
+<p>Depending on how many squares you have memorized, this formula works best for numbers between (50 - [highest square you know]) and (50 + [highest square you know]). Thanks to the scalability of this formula, it would probably best to memorize squares up to 25. It’s much harder to see where this comes from, but if we want to verify its validity, it’s not hard to check. This evaluates to 100x - 2500 + 2500 - 100x + x^2 = x^2 when we expand. For example, if we want to calculate 63^2, we simply plug in to get (38) * 100 + (-13)^2 = 3800 + 169 = 3969. Like I mentioned previously, this formula is scalable. As an exercise to close off this post, see if you can scale this formula so that numbers between 76 and 125 are easy to calculate only knowing squares up to 25.</p>
+
+<details>
+  <summary>Spoiler</summary>
+  We can just scale our constants by 2 and the equality still holds. This gives us 
+  <p align="center">
+  <img src="https://latex.codecogs.com/gif.latex?x^2=(x-50)*200+(100-x)^2" />
+  </p>
+  Because our square term now deals with (100-x) and we have our squares up to 25 memorized, this adapted formula becomes useful for numbers between 75 and 125.
+
+</details>
+
+<h3 id="where-to-go-from-here">Where to go from here</h3>
+
+<ul>
+  <li>Try to come up with your own formula that makes it easy to square numbers!
+    <ul>
+      <li>From the third trick, we saw that you can really come up with anything that can be shown to equal x^2 in the end.</li>
+      <li>What properties of numbers are you employing in these tricks to make it easier? Are you using multiples of 10 or 100?</li>
+    </ul>
+  </li>
+  <li>Can you generalize any of these tricks for multiplying any two numbers?</li>
+  <li>We noted that each square is simply the sum of the first n odd numbers. See what kinds of patterns you can find if we do this with even numbers.
+    <ul>
+      <li>Are there any patterns with their factorization?</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+:ET

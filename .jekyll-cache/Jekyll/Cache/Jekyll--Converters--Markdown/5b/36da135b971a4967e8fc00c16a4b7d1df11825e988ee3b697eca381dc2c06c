@@ -1,0 +1,14 @@
+I"�<p>There’s a famous competition that takes place in many high school physics classes around the country - build a contraption to make a raw egg survive from the highest drop. How do colleges expand on this as both a computer science topic and a math topic?</p>
+
+<h3 id="problem-proposal">Problem Proposal</h3>
+
+<p>The <a href="https://www.geeksforgeeks.org/binary-search/">Binary Search</a> is one of the first things taught in introductory CS classes. This search method teaches newer computer scientists that a linear probing is not always the best way to go, and that a log base 2 approach comes up in many algorithms (such as sorting, tree traversal, and more!).</p>
+
+<p>The classic problem goes like this:</p>
+
+<blockquote>
+  <p>You are standing atop a 100 story building. You have two identical eggs, and your goal is to find out the highest floor from which a dropped egg will not crack. If you drop an egg and it breaks, you cannot reuse that egg. However, if you drop an egg and it doesn’t break, you are able to do more testing with that egg. What strategy should you use for testing to minimize the number of drops needed in the worst case?</p>
+</blockquote>
+
+<div align="center">![eggs](/images/eggs.jpg)</div>
+:ET

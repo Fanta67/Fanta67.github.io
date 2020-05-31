@@ -1,0 +1,50 @@
+I"M<p>There’s a famous competition that takes place in many high school physics classes around the country - build a contraption to make a raw egg survive from the highest drop. How do colleges expand on this as both a computer science topic and a math topic?</p>
+
+<h3 id="problem-proposal">Problem Proposal</h3>
+
+<p>The classic problem goes like this:</p>
+
+<blockquote>
+  <p>You are standing atop a 100 story building. You have two identical eggs, and your goal is to find out the highest floor from which a dropped egg will not crack. If you drop an egg and it breaks, you cannot reuse that egg. However, if you drop an egg and it doesn’t break, you are able to do more testing with that egg. What strategy should you use for testing to minimize the number of drops needed in the worst case?</p>
+</blockquote>
+
+<div align="center"><img src="/images/eggs.jpg" /></div>
+
+<h3 id="variants">Variants</h3>
+
+<h4 id="one-egg">One Egg</h4>
+
+<p>Let’s start by thinking about what happens when we are only given a single egg. The naïve solution would have us simply start with floor 1 and work our way up. This takes us a worst case of 100 drops. Because we only have one egg, we can’t do any better! If the egg breaks at floor n, we would have no way to know if the egg would also break at floor (n - 1).</p>
+
+<h4 id="infinite-eggs">Infinite Eggs</h4>
+
+<p>Of course, the naïve solution still works here. As mentioned previously, in the worst case scenario, when the answer to the puzzle is 100, this will take us 100 drops to verify. In computer science, we call this O(N) where N is the number of floors that we start with. However, because we have this ability now to break an egg and continue testing, we can do better.</p>
+
+<p>The <a href="https://www.geeksforgeeks.org/binary-search/">Binary Search</a> is one of the first things taught in introductory CS classes. This search method teaches newer computer scientists that linear probing is not always the best way to go, and that a log base 2 approach comes up in many algorithms (such as sorting, tree traversal, and more!). Each iteration, we check our result at the midpoint of our range using the formula mid = low + (high - low) / 2. [<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>]</p>
+
+<p>By the statement of the bounds of the problem, we know that the answer to the problem must lie in the range [1, 100]. If we adapt the binary search to this problem, we calculate the first drop to be 1 + (100 - 1) / 2 = 1 + 49 (integer division!) = floor 50. If the egg breaks after the first drop, we know that our answer then lies in the range of [1, 49]. If it doesn’t break, then we move our window to [51, 100]. We continue reducing our search space to half of its size in each iteration until we get to a window at which low = high. When we get to this point, this tells us that the answer to our problem is</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">binarySearch</span><span class="o">()</span> <span class="o">{</span> 
+  <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+  <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+  <span class="k">while</span> <span class="o">(</span><span class="n">min</span> <span class="o">&lt;</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">min</span> <span class="o">+</span> <span class="o">(</span><span class="n">max</span> <span class="o">-</span> <span class="n">min</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isBadVersion</span><span class="o">(</span><span class="n">mid</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">max</span> <span class="o">=</span> <span class="n">mid</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="n">min</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+  <span class="k">return</span> <span class="n">min</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<h4 id="back-to-two-eggs">Back to Two Eggs</h4>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>This formula is actually pretty interesting in itself. It’s clear that we want to find the floor of the average of the two numbers. You might ask, why don’t we just use (low + high) / 2? The difference seems subtle, and it is! The original binary search implementation in 1960 used this version and the bug actually went unnoticed for about 20 years. The problem with this has to do with overflow. If you use a language like Python which represents its numbers as an endless stream in memory. However, if you use a language like Java which designates a strict 32 bits to your integer, trying to do (low + high) may overflow the memory allocated for your integer if it happens to give a result greater than 2^32. Though it is an edge case (and doesn’t have any relevance for this particular problem), it’s still something we can prevent! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+:ET
