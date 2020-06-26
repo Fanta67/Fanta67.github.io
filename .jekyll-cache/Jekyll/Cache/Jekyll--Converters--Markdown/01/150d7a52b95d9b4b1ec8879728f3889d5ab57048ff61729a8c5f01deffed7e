@@ -1,0 +1,47 @@
+I"�<p>If you ask me what my favorite number is, you’ll either get the answer 7 or 9801. 7 is supposed to be lucky and my birthday falls on a 7th, but what’s so special about 9801 to make it a contender?</p>
+
+<h3 id="building-blocks">Building blocks</h3>
+
+<p>One of the first identities that we learn about fractions is that 1/3 is equal to .333… repeating infinitely. A silly argument I used to get into frequently with non-math nerds was whether or not .999… is equal to 1 (of course it is), but that’s for a different post. The post about infinity will probably also come soon. Anyways, infinitely repeating decimals are the building blocks for what we’re going to do today. Another simple fraction that exhibits this infinitely repeating pattern is 1/9 = .111…, but this one has a fun property that we can exploit for an interesting pattern. The repeating 1 happens to be the same number that appears in our numerator 1/9. So what happens when we apply this division by 9 again?</p>
+
+<h3 id="fun-with-recursion">Fun with recursion</h3>
+
+<p>Applying a division by 9 on a number that is composed of an infinite number of 1’s to the right of the decimal, as expected, gives us another gibberish decimal that goes on indefinitely. However, the defining characteristic that makes this new number so interesting is the pattern that we see in the decimal. Instead of plugging 1/81 into a calculator, let’s think about what happens when we break this down into 2 steps of dividing by 9. We already saw what happens with the first division, and we can think of the second division as replacing each 1 in the repeating decimal with a 1/9. We then replace that 1/9 with its infinitely repeating decimal form and we find that it produces a number that leaves us thorougly confused! Okay it’s hard to spell out what I’m trying to say here. Let’s take a step back (or if you already get it you can skip to the <a href="#actually-a-loser-haha">super awesome smart people section</a>). So we have this decimal where each decimal place is a 1/9. Let’s pretend that’s legal. From here, we know that 1/9 = 0.111… so if we replace each of these 1/9’s with their decimal equivalent, we get the following sum:</p>
+
+<p>.0111… + .00111… + .000111… + …</p>
+
+<p>Adding digit-wise, we get that the sum is 1/81 = .012345679012…</p>
+
+<p>As mentioned before, the interesting part about this is the pattern we find in the repeating decimal. Can you see what it is? Wow! uhhhh so we learned how to count single digit numbers again¿¿?? The more astute of you readers might also realize and ask - “hey man what about 8? Is that a typo? Why do we go from 7 to 9?” and to that I respond [<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>](#this-is-a-dumb-question) hello. [<sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>]</p>
+
+<h3 id="actually-a-loser-haha">Super awesome smart people beyond this point</h3>
+
+<h3 id="mega-uber-cool-stuff">Mega uber cool stuff</h3>
+
+<h3 id="where-to-go-from-here">Where to go from here</h3>
+
+<ul>
+  <li>In this post, we explored infinitely repeating decimals with a pattern. What other simple fractions produce an infinite pattern?</li>
+  <li>1/7 produces the repeating decimal .142857… and 2/7 produces the same cycle of numbers but starting with a 2.
+    <ul>
+      <li>Can you come up with a mathematical reasoning behind why this occurs?</li>
+      <li>What kind of fun tricks can you do with 1/7?</li>
+    </ul>
+  </li>
+</ul>
+
+<ul id="this-is-a-dumb-question">
+  <li>That’s for you to figure out because I’m not smart enough to AHAhahHAahha</li>
+</ul>
+
+<h3 id="footnotes">Footnotes</h3>
+
+<p><br /></p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>awer <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+  </ol>
+</div>
+:ET

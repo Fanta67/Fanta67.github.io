@@ -1,0 +1,89 @@
+I"�<p>If you ask me what my favorite number is, you’ll either get the answer 7 or 9801. 7 is supposed to be lucky and my birthday falls on a 7th, but what’s so special about 9801 to make it a contender?</p>
+
+<h3 id="building-blocks">Building blocks</h3>
+
+<p>One of the first identities that we learn about fractions is that 1/3 is equal to .333… repeating infinitely. A silly argument I used to get into frequently with non-math nerds was whether or not .999… is equal to 1 (of course it is), but that’s for a different post. The post about infinity will probably also come soon. Anyways, infinitely repeating decimals are the building blocks for what we’re going to do today. Another simple fraction that exhibits this infinitely repeating pattern is 1/9 = .111…, but this one has a fun property that we can exploit for an interesting pattern. The repeating 1 happens to be the same number that appears in our numerator 1/9. So what happens when we apply this division by 9 again?</p>
+
+<h3 id="fun-with-recursion">Fun with recursion</h3>
+
+<p>Applying a division by 9 on a number that is composed of an infinite number of 1’s to the right of the decimal, as expected, gives us another gibberish decimal that goes on indefinitely. However, the defining characteristic that makes this new number so interesting is the pattern that we see in the decimal. Instead of plugging 1/81 into a calculator, let’s think about what happens when we break this down into 2 steps of dividing by 9. We already saw what happens with the first division, and we can think of the second division as replacing each 1 in the repeating decimal with a 1/9. We then replace that 1/9 with its infinitely repeating decimal form and we find that it produces a number that leaves us thorougly confused! Okay it’s hard to spell out what I’m trying to say here. Let’s take a step back (or if you already get it you can skip to the <a href="#actually-a-loser-haha">super awesome smart people section</a>). We start with .111… from our first division by 9. Take note that this can be rewritten as:</p>
+
+<p>.1 + .01 + .001 + …</p>
+
+<p>We can then replace each of these 1’s with a 1/9, so we have this decimal where each decimal place is a 1/9. Let’s pretend that’s legal in our number system. At this point, our summation is rewritten as</p>
+
+<p>.(1/9) + .0(1/9) + .00(1/9) + …</p>
+
+<p>From here, we know that 1/9 = 0.111… so if we replace each of these 1/9’s with their decimal equivalent, we get the following sum:</p>
+
+<p>.0111… + .00111… + .000111… + …</p>
+
+<p>Adding digit-wise, we get that the sum is 1/81 = .012345679012…</p>
+
+<p>As mentioned before, the interesting part about this is the pattern we find in the repeating decimal. Can you see what it is? Wow! uhhhh so we learned how to count single digit numbers again¿¿?? The more astute of you readers might also realize and ask - “hey man what about 8? Is that a typo? Why do we go from 7 to 9?” and to that I respond <a href="#this-is-a-dumb-question">here</a></p>
+
+<h3 id="actually-a-loser-haha">Super awesome smart people beyond this point</h3>
+
+<p>Cool, so we found that 1/81 exhibits this property because it happens to be the square of 1/9 and 1/9 happens to result in infinitely repeating 1’s. Where does 9801 come into play? Your inner mathematician might be yelling, “I know my 1 digit numbers now! I’m ready for 2 digit numbers!” Haha calm down there Ramanujan.</p>
+
+<p>So how do we get an extra digit? Let me give you a sneak peek of the infinity post. Density of an infinite value doesn’t change it’s magnitude. For 1/9, we have an infinite number of 1’s after the decimal, all packed up right next to each other. If we need an extra digit to count two digit numbers, we can simply spread the 1’s apart. That is, if we could space out our .111… with .010101… instead, we could learn to count with up to 99. Interesting enough, 99 just happens to be the number we need, as 1/99 = .010101…! It’s actually nuts how numbers just WORK unlike my CS projects. What was I thinking becoming a CS major? Anyways, I digress.</p>
+
+<p>What does this mean for building 2 digit numbers? Well simply put, the 0 that we use as a separator for our 1’s allows us an extra digit to work with. This means that we don’t actually reset to 0 until we hit 99, and this means that we start our decimal at 00. We can use the same logic as we did for 1/9. By dividing twice, we get 1/99^2 = 1/9801 = .00010203… and this gives us a counting decimal that allows for 2 digit counting. Using 2 digits also gets us the number 8 back! But we do lose 98 in the process…</p>
+
+<h3 id="mega-uber-cool-stuff">Mega uber cool stuff</h3>
+
+<p>9801 is my favorite because my tiny brain can only count up to 99. But if you think you’re slick, there’s no reason to stop there! We can proceed with the same pattern and realize that if we want 3 digits, we just have divide 1 by 999 twice. We need to take the square of 999 which happens to be 998001. However, we will similarly lose 998 in this pattern. At this point, we can even start to see a pattern here with squares of numbers that consist of n 9’s. We construct the square by taking (n - 1) 9’s, slapping on an 8, (n - 1) 0’s, then a 1. Incrementally, this means we just tag on a extra 9 and 0 to get from one square to another. This might be easier to see with a table:</p>
+
+<div align="center">
+9^2 = 81
+<br />
+99^2 = 9801
+<br />
+999^2 = 998001
+<br />
+9999^2 = 99980001
+<br />
+99999^2 = 9999800001
+</div>
+
+<p>If you came from the squares post, you can add this to your list of fun facts :)</p>
+
+<h3 id="where-to-go-from-here">Where to go from here</h3>
+<h4 id="stuff-that-really-hurts-my-brain-please-lmk-if-you-find-an-answer-to-any-of-these">(stuff that really hurts my brain please lmk if you find an answer to any of these)</h4>
+
+<ul>
+  <li>In this post, we explored infinitely repeating decimals with a pattern. 1/7 produces the repeating decimal .142857… and 2/7 produces the same cycle of numbers but starting with a 2.
+    <ul>
+      <li>Can you think of a fraction that makes our counting start at a different number?</li>
+      <li>Can you come up with a mathematical reasoning behind why this occurs?</li>
+      <li>What kind of tricks can you do with 1/7 to produce more patterns?</li>
+    </ul>
+  </li>
+  <li>The number that we skip for each of these fractions happens to be the prefix of the denominator preceding the 0’s and 1. For example, for 1/81, we skip 8. For 1/9801, we skip 98. For 1/998001, we skip 998. Is there an underlying connection here?</li>
+  <li>We can actually make the full version of the single digit counting decimal that doesn’t skip over 8. In its full reduced form, this fraction is 137174210/1111111111.
+    <ul>
+      <li>What can we do with this fraction to uncover more patterns?</li>
+      <li>How does this relate to the fraction if we want to count 2 digits without skipping 98? 3 digits without skipping 998?</li>
+    </ul>
+  </li>
+  <li>Fun fact: 987654321/123456789 is almost exactly equal to 8. The decimals place starts with 0000000729, and proceeds with a pattern, allocating 10 digits for each number in the pattern (at least for the first 4 numbers).
+    <ul>
+      <li>729 is happens to be 9^3. Can you see where this comes from?</li>
+      <li>Each subsequent number in the pattern follows the pattern of multiplying the previous number by 91. What’s special about 91, or where does this come from?</li>
+      <li>Numbers in the pattern that have more than 10 digits start to coincide with each other, so after the first 40 decimal places it gets pretty messy. Does this pattern continue infinitely? If not, where does it stop?</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="this-is-a-dumb-question">Why are we missing 8?</h3>
+<ul>
+  <li>That’s for you to figure out because I’m not smart enough to HaAhahHAahha</li>
+</ul>
+<details>
+  <summary>Spoiler</summary>
+  Just kidding it's just because of the carryover during the addition when one of our digits would have hit 10.
+  On the other hand 8 is a dumb number and we don't need it anyways : )
+</details>
+
+<p><br /></p>
+:ET
